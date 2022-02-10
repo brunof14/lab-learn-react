@@ -5,6 +5,7 @@ import { CommentaryList } from "./components/CommentaryList";
 import { useEffect, useState } from "react";
 import { commentsData } from "./commentsData";
 import { GlobalStyles } from "./styles/GlobalStyles";
+import { AccountLogged } from "./components/AccountLogged";
 
 export function CommentsFigma() {
   const [comment, setComment] = useState("");
@@ -41,6 +42,7 @@ export function CommentsFigma() {
   return (
     <>
       <GlobalStyles />
+      <AccountLogged />
       <Container>
         <h1>Comments</h1>
         <CommentaryForm

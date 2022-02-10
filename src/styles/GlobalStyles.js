@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 62.5%;
   }
 
-  body {
+  body, input {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;
