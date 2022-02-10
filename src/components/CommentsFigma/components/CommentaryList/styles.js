@@ -1,12 +1,5 @@
 import styled from 'styled-components'
-
-export const Container = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding: 1.6rem 1.2rem 0;
-`
+import { AvatarImg } from '../CommentaryForm/styles'
 
 export const CommentaryItem = styled.li`
   display: flex;
@@ -48,4 +41,23 @@ export const Comment = styled.p`
   margin-top: 0.8rem;
   line-height: 1.7;
   color: #000000cc;
+`
+
+export const Container = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 1.6rem 1.2rem 0;
+
+  --avatar-size: 3.2rem;
+
+  & ${AvatarImg} {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+  }
+
+  & ${CommentAuthor} {
+    height: var(--avatar-size);
+  }
 `
