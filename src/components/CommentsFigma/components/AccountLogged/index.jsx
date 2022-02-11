@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import {
   AvatarImg,
   FormUserData,
@@ -10,24 +10,21 @@ import {
 } from "./styles";
 
 export function AccountLogged() {
-  const [name, setName] = useState("Been");
-  const [avatarUrl, setAvatar] = useState(
-    "https://avatar-endpoint.herokuapp.com/api/"
-  );
-  const [at, setAt] = useState("@uidesign");
+  const { name, at, avatarUrl, onChangeAt, onChangeName, onChangeUrl } =
+    useUserContext();
 
   function handleChangeInputAvatar(e) {
     const [firstFileImg] = e.target.files;
     const url = window.URL.createObjectURL(firstFileImg);
-    setAvatar(url);
+    onChangeUrl(url);
   }
 
   function handleChangeName({ target }) {
-    setName(target.value);
+    onChangeName(target.value);
   }
 
   function handleChangeAt({ target }) {
-    setAt(target.value);
+    onChangeAt(target.value);
   }
 
   return (

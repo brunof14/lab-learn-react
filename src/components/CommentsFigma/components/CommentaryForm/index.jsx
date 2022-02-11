@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import {
   Container,
   AvatarImg,
@@ -8,6 +9,7 @@ import {
 } from "./styles";
 
 export function CommentaryForm({ comment, onCommentChange, onSubmitComment }) {
+  const { name, avatarUrl } = useUserContext();
   const [isFocusInput, setIsFocusInput] = useState(false);
   const inputRef = useRef();
 
@@ -61,7 +63,7 @@ export function CommentaryForm({ comment, onCommentChange, onSubmitComment }) {
         className={isFocusInput ? "focus" : ""}
         onClick={handleClickInWrapperInput}
       >
-        <AvatarImg src="https://avatar-endpoint.herokuapp.com/api" alt="Luiz" />
+        <AvatarImg src={avatarUrl} alt={name} />
         <DivInput
           ref={inputRef}
           type="text"
