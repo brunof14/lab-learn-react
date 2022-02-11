@@ -25,9 +25,9 @@ export function CommentaryList({ comments }) {
               <span className="author-name">{author.name}</span>
               <span className="at">{author.at}</span>
               <span className="dot">·</span>
-              <span className="time">{formatDistance(comment.time)}</span>
+              <span className="createdAt">{formatDistance(comment.createdAt)}</span>
             </CommentAuthor>
-            <Comment>{comment.commentary}</Comment>
+            <Comment>{comment.body}</Comment>
           </Content>
         </CommentaryItem>
       );

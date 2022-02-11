@@ -1,54 +1,29 @@
-const helpLoadDifferentImgFromOneEndPoint = (data) => {
-  return data.map((comment) => ({
-    ...comment,
-    author: {
-      ...comment.author,
-      avatarUrl:
-        comment.author.avatarUrl + `?${Math.floor(Math.random() * 1000000)}`,
-    },
-  }));
+const randomDate = (beginDate = new Date(2022, 0, 28), endDate = new Date()) =>
+  new Date(
+    beginDate.getTime() +
+      Math.random() * (endDate.getTime() - beginDate.getTime())
+  );
+
+export const api = {
+  async getComments(size = 3) {
+    const randomUsers = await (
+      await fetch(
+        `https://random-data-api.com/api/users/random_user?size=${size}`
+      )
+    ).json();
+
+    return randomUsers.map(({ id, first_name, last_name }) => {
+      return {
+        id,
+        author: {
+          avatarUrl:
+            "https://avatar-endpoint.herokuapp.com/api/?" + Math.random(),
+          name: `${first_name} ${last_name}`,
+          at: `@test-${id}`,
+        },
+        body: "Lorem ipsum dolor sit amet consectetur",
+        createdAt: randomDate(),
+      };
+    });
+  },
 };
-export const commentsData = helpLoadDifferentImgFromOneEndPoint([
-  {
-    id: 1,
-    author: {
-      avatarUrl: "https://avatar-endpoint.herokuapp.com/api",
-      name: "FakeName",
-      at: "@test",
-    },
-    commentary:
-      "If you want to try building your site based on this, check out Framer sites when it launches. Easier than Webflow",
-    time: new Date("2021-12-11T10:00:00"),
-  },
-  {
-    id: 2,
-    author: {
-      avatarUrl: "https://avatar-endpoint.herokuapp.com/api/",
-      name: "FakeName",
-      at: "@test",
-    },
-    commentary: "Check out Framer sites when it launches. Easier than Webflow",
-    time: new Date("2022-02-11T10:20:00"),
-  },
-  {
-    id: 3,
-    author: {
-      avatarUrl: "https://avatar-endpoint.herokuapp.com/api/",
-      name: "FakeName",
-      at: "@test",
-    },
-    commentary: "Debitis error mollitia reiciendis",
-    time: new Date("2022-02-11T10:35:50"),
-  },
-  {
-    id: 4,
-    author: {
-      avatarUrl: "https://avatar-endpoint.herokuapp.com/api/",
-      name: "FakeName",
-      at: "@test",
-    },
-    commentary:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit ut praesentium soluta tempore possimus, esse velit, debitis error mollitia reiciendis",
-    time: new Date("2022-02-11T11:35:00"),
-  },
-]);

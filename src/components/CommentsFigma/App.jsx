@@ -3,7 +3,7 @@ import { CommentaryForm } from "./components/CommentaryForm";
 import { Container } from "./styles";
 import { CommentaryList } from "./components/CommentaryList";
 import { useEffect, useState } from "react";
-import { commentsData } from "./commentsData";
+import { api } from "./commentsData";
 
 import { AccountLogged } from "./components/AccountLogged";
 import { useUserContext } from "./hooks/useUserContext";
@@ -14,7 +14,13 @@ export function App() {
   const { name, at, avatarUrl } = useUserContext();
 
   useEffect(() => {
-    setComments(commentsData);
+    const getComments = async () => {
+      const commentsData = await api.getComments();
+      console.log(commentsData);
+      setComments(commentsData);
+    };
+
+    getComments();
   }, []);
 
   function handleCommentChange(value) {
@@ -34,8 +40,8 @@ export function App() {
         name,
         at,
       },
-      time: new Date(),
-      commentary: comment,
+      createdAt: new Date(),
+      body: comment,
     };
     setComment("");
     setComments((prevComments) => [...prevComments, data]);
