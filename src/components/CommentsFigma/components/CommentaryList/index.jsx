@@ -6,8 +6,13 @@ import {
   CommentAuthor,
   Comment,
 } from "./styles";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 
 export function CommentaryList({ comments }) {
+  function formatDistance(date) {
+    return formatDistanceToNowStrict(date, { addSuffix: true });
+  }
+
   function makeCommentsItemList(comments) {
     return comments.map((comment) => {
       const { author } = comment;
@@ -20,7 +25,7 @@ export function CommentaryList({ comments }) {
               <span className="author-name">{author.name}</span>
               <span className="at">{author.at}</span>
               <span className="dot">·</span>
-              <span className="time">{comment.time}</span>
+              <span className="time">{formatDistance(comment.time)}</span>
             </CommentAuthor>
             <Comment>{comment.commentary}</Comment>
           </Content>
