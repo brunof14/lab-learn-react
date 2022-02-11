@@ -7,10 +7,26 @@ import {
   Comment,
 } from "./styles";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import compareAsc from "date-fns/fp/compareAsc";
 
 export function CommentaryList({ comments }) {
   function formatDistance(date) {
     return formatDistanceToNowStrict(date, { addSuffix: true });
+  }
+
+  function sortCommentsByMostRecent(comments) {
+    const commentCopy = comments.map((comment) => {
+      return {
+        ...comment,
+        author: {
+          ...comment.author,
+        },
+      };
+    });
+
+    commentCopy.sort((a, b) => compareAsc(a.createdAt, b.createdAt));
+
+    return commentCopy;
   }
 
   function makeCommentsItemList(comments) {
@@ -25,7 +41,9 @@ export function CommentaryList({ comments }) {
               <span className="author-name">{author.name}</span>
               <span className="at">{author.at}</span>
               <span className="dot">·</span>
-              <span className="createdAt">{formatDistance(comment.createdAt)}</span>
+              <span className="createdAt">
+                {formatDistance(comment.createdAt)}
+              </span>
             </CommentAuthor>
             <Comment>{comment.body}</Comment>
           </Content>
@@ -34,5 +52,9 @@ export function CommentaryList({ comments }) {
     });
   }
 
-  return <Container>{comments && makeCommentsItemList(comments)}</Container>;
+  return (
+    <Container>
+      {comments && makeCommentsItemList(sortCommentsByMostRecent(comments))}
+    </Container>
+  );
 }
