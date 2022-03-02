@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { Container as ContainerWrapper } from "../../styles";
 import { AvatarImg as Avatar } from "../CommentaryForm/styles";
 
-export const Container = styled(ContainerWrapper)`
-  padding: 2.4rem 1.2rem;
+export const Container = styled.div`
+  padding: 1.2rem 0;
 `;
 
 export const FormUserData = styled.form`
